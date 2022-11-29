@@ -1,0 +1,19 @@
+$main-color: #e86e1e;
+$headerHeight: 44px;
+
+.header {
+  height: $headerHeight;
+  background-color: $main-color;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+
+.content {
+  box-sizing: border-box;
+  margin-top: $headerHeight;
+  padding: 16px;
+  background-color: aqua;
+  height: calc(100vh - $headerHeight);
+}
