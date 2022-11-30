@@ -14,6 +14,13 @@ $headerHeight: 44px;
   box-sizing: border-box;
   margin-top: $headerHeight;
   padding: 16px;
-  background-color: aqua;
   height: calc(100vh - $headerHeight);
+
+  .weather-row {
+    display: flex;
+    justify-content: center;
+    .column {
+      width: clamp(160px, 50%, 400px);
+    }
+  }
 }

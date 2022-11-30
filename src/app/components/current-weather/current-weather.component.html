@@ -1,0 +1,13 @@
+<div class="current-weather-container">
+  <ng-container *ngIf="weather">
+    <div class="temperature">{{weather.main.temp | number: '1.1-1'}} &#8451;</div>
+    <div><img [src]="weatherIcon"></div>
+    <div>{{weather.weather[0].description}}</div>
+    <div class="min-max">
+      <p>Min: {{weather.main.temp_min | number: '1.1-1'}} &#8451;</p>
+      <p>Max: {{weather.main.temp_max | number: '1.1-1'}} &#8451;</p>
+    </div>
+    <span>Humidity: {{weather.main.humidity | number: '1.0-0'}} %</span>
+  </ng-container>
+  <span *ngIf="!weather">No data</span>
+</div>

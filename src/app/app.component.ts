@@ -12,8 +12,6 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.weatherService.getWeather().subscribe(res => {
-      console.log('weather', res);
-    });
+    this.weatherService.getWeather();
   }
 }

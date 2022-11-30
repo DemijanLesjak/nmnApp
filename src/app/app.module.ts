@@ -5,15 +5,19 @@ import { AppComponent } from './app.component';
 import { WeatherService } from './services/weather.service';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { CurrentWeatherComponent } from './components/current-weather/current-weather.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CurrentWeatherComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,
+    MatProgressSpinnerModule,
   ],
   providers: [WeatherService],
   bootstrap: [AppComponent]

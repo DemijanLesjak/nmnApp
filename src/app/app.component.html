@@ -3,6 +3,15 @@
 </div>
 
 <div class="content">
+  <div class="weather-row" *ngIf="weatherService.weatherData$ | async as weatherData; else loading">
+    <app-current-weather class="column" [weather]="weatherData">
+    </app-current-weather>
+    <app-current-weather class="column" [weather]="weatherData">
+    </app-current-weather>
+  </div>
 
+  <ng-template #loading>
+    <mat-spinner></mat-spinner>
+  </ng-template>
 </div>
 
