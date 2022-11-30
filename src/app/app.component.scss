@@ -7,6 +7,20 @@
   top: 0;
   left: 0;
   right: 0;
+
+  .languages {
+    display: flex;
+
+    p {
+      cursor: pointer;
+      margin-left: 10px;
+      color: black;
+      &:hover, &.active {
+        color: white;
+      }
+
+    }
+  }
 }
 
 .content {
