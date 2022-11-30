@@ -10,7 +10,12 @@
   .interval-item {
     width: 100%;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+
+    .lines {
+      display: flex;
+      flex-direction: column;
+    }
 
     .interval-details {
       display: flex;

@@ -6,16 +6,10 @@
   align-items: center;
 
   .temperature {
-    font-size: 60px;
+    font-size: 32px;
   }
 
-  .min-max {
-    display: flex;
-    justify-content: center;
-
-    p {
-      margin-left: 8px;
-      margin-right: 8px;
-    }
+  .description {
+    margin-bottom: 20px;
   }
 }
