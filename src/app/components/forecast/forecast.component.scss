@@ -1,0 +1,23 @@
+.forecast-container {
+  padding: 10px;
+  width: 100%;
+  height: 404px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
+
+  .interval-item {
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+
+    .interval-details {
+      display: flex;
+
+      .temp {
+        margin-left: 10px;
+      }
+    }
+  }
+}

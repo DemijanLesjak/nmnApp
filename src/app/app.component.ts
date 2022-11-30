@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { WeatherService } from './services/weather.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
 
@@ -13,9 +14,11 @@ export class AppComponent {
 
   ngOnInit() {
     this.weatherService.getWeather();
+    this.weatherService.getForecast();
   }
 
   refresh() {
     this.weatherService.getWeather();
+    this.weatherService.getForecast();
   }
 }

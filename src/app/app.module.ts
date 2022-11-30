@@ -9,12 +9,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CurrentWeatherComponent } from './components/current-weather/current-weather.component';
 import { LocationTagComponent } from './components/location-tag/location-tag.component';
 import { MatButtonModule } from '@angular/material/button';
+import { ForecastComponent } from './components/forecast/forecast.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CurrentWeatherComponent,
-    LocationTagComponent
+    LocationTagComponent,
+    ForecastComponent
   ],
   imports: [
     BrowserModule,

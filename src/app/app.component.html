@@ -14,8 +14,8 @@
     <div class="weather-row">
       <app-current-weather class="column" [weather]="weatherData">
       </app-current-weather>
-      <app-current-weather class="column" [weather]="weatherData">
-      </app-current-weather>
+      <app-forecast class="column" [forecast]="weatherService.forecastData$ | async">
+      </app-forecast>
     </div>
   </ng-container>
 

@@ -1,10 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { WeatherData } from '../../../models/WeatherData';
 
 @Component({
   selector: 'app-current-weather',
   templateUrl: './current-weather.component.html',
-  styleUrls: ['./current-weather.component.scss']
+  styleUrls: ['./current-weather.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CurrentWeatherComponent {
   @Input() weather: WeatherData | undefined;
