@@ -1,9 +1,12 @@
+@import "../../../variables";
+
 .location-tag-container {
   padding: 10px;
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: $main-color;
 
   .location-name {
     font-size: 40px;

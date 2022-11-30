@@ -4,7 +4,7 @@
 
 <div class="content">
   <ng-container *ngIf="weatherService.weatherData$ | async as weatherData; else loading">
-    <div class="weather-row">
+    <div class="weather-row location">
       <app-location-tag class="location-card"
                         [location]="weatherData.name"
                         [timestamp]="weatherService.timestamp$ | async">
