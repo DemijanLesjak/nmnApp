@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { CurrentWeatherComponent } from './components/current-weather/current-weather.component';
 import { LocationTagComponent } from './components/location-tag/location-tag.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { LocationTagComponent } from './components/location-tag/location-tag.com
     HttpClientModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
+    MatButtonModule,
   ],
   providers: [WeatherService],
   bootstrap: [AppComponent]

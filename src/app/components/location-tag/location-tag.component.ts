@@ -7,6 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class LocationTagComponent {
   @Input() location: string = '';
-  @Input() timestamp: string | undefined;
-
+  @Input() timestamp: string | null = '';
 }

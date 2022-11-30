@@ -5,7 +5,9 @@
 <div class="content">
   <ng-container *ngIf="weatherService.weatherData$ | async as weatherData; else loading">
     <div class="weather-row">
-      <app-location-tag class="location-card" [location]="weatherData.name" [timestamp]="timestamp">
+      <app-location-tag class="location-card"
+                        [location]="weatherData.name"
+                        [timestamp]="weatherService.timestamp$ | async">
       </app-location-tag>
     </div>
 
@@ -21,5 +23,9 @@
   <ng-template #loading>
     <mat-spinner></mat-spinner>
   </ng-template>
+
+  <div class="button-container">
+    <button mat-raised-button (click)="refresh()">Refresh</button>
+  </div>
 </div>
 

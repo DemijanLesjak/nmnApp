@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { WeatherData } from '../../models/WeatherData';
+import * as moment from 'moment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,12 @@ export class WeatherService {
   private readonly _mariborLat: string = '46.555';
   private readonly _mariborLon: string = '15.647';
   public weatherData$: BehaviorSubject<WeatherData | null> = new BehaviorSubject<WeatherData | null>(null);
+  public timestamp$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(
     private _http: HttpClient
   ) {
+    moment.locale('sl');
   }
 
   getWeather(): void {
@@ -24,6 +27,7 @@ export class WeatherService {
       }),
       tap((res: WeatherData) => {
         this.weatherData$.next(res);
+        this.timestamp$.next(moment().format('LLLL'));
       })
     ).subscribe();
   }
