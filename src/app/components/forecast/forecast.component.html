@@ -1,0 +1,16 @@
+<div class="forecast-container">
+  <ng-container *ngFor="let interval of forecast?.list">
+    <div class="interval-item">
+      <div class="time">
+        <span>{{interval.dt_txt | date : "shortTime"}}</span>
+      </div>
+      <div class="interval-details">
+        <img [src]="getWeatherIcon(interval.weather[0].icon)">
+        <div class="lines">
+          <span>{{interval.weather[0].description}}</span>
+          <span class="temp">{{interval.main.temp | number: '1.0-0'}} &#8451;</span>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
