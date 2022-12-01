@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, startWith, tap } from 'rxjs';
 import { WeatherData } from '../../models/WeatherData';
 import * as moment from 'moment';
 import { ForecastData } from '../../models/ForecastData';
@@ -24,13 +24,15 @@ export class WeatherService {
     moment.locale('sl');
   }
 
-  getWeather(): void {
+  getWeather(lat?: number, long?: number): void {
     this._http.get(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${this._mariborLat}&lon=${this._mariborLon}&appid=${this._apiKey}&units=metric&lang=${this.translateState.localization}`).pipe(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat ?? this._mariborLat}&lon=${long ?? this._mariborLon}&appid=${this._apiKey}&units=metric&lang=${this.translateState.localization}`).pipe(
+      startWith(JSON.parse(localStorage.getItem('weatherData') ?? '')),
       map((res: any) => {
         return res as WeatherData;
       }),
       tap((res: WeatherData) => {
+        localStorage.setItem('weatherData', JSON.stringify(res));
         this.weatherData$.next(res);
         moment.locale(this.translateState.localization);
         this.timestamp$.next(moment().format('LLLL'));
@@ -38,13 +40,15 @@ export class WeatherService {
     ).subscribe();
   }
 
-  getForecast(): void {
+  getForecast(lat?: number, long?: number): void {
     this._http.get(
-      `https://api.openweathermap.org/data/2.5/forecast?lat=${this._mariborLat}&lon=${this._mariborLon}&appid=${this._apiKey}&units=metric&lang=${this.translateState.localization}`).pipe(
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat ?? this._mariborLat}&lon=${long ?? this._mariborLon}&appid=${this._apiKey}&units=metric&lang=${this.translateState.localization}`).pipe(
+      startWith(JSON.parse(localStorage.getItem('forecastData') ?? '')),
       map((res: any) => {
         return res as ForecastData;
       }),
       tap((res: ForecastData) => {
+        localStorage.setItem('forecastData', JSON.stringify(res));
         this.forecastData$.next(res);
       })
     ).subscribe();

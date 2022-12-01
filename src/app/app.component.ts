@@ -10,6 +10,7 @@ import { TranslateStateService } from './services/translate-state.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+  geolocation: any;
 
   constructor(
     public weatherService: WeatherService,
@@ -19,13 +20,20 @@ export class AppComponent {
   }
 
   ngOnInit() {
-    this.weatherService.getWeather();
-    this.weatherService.getForecast();
+    this.geolocation = navigator.geolocation;
+    this.refresh();
   }
 
   refresh() {
-    this.weatherService.getWeather();
-    this.weatherService.getForecast();
+    if (this.geolocation) {
+      this.geolocation.getCurrentPosition((pos: GeolocationPosition) => {
+        this.weatherService.getWeather(pos.coords.latitude, pos.coords.longitude);
+        this.weatherService.getForecast(pos.coords.latitude, pos.coords.longitude);
+      });
+    } else {
+      this.weatherService.getWeather();
+      this.weatherService.getForecast();
+    }
   }
 
   changeLanguage(lang: 'en' | 'sl') {
