@@ -27,7 +27,7 @@ export class WeatherService {
   getWeather(lat?: number, long?: number): void {
     this._http.get(
       `https://api.openweathermap.org/data/2.5/weather?lat=${lat ?? this._mariborLat}&lon=${long ?? this._mariborLon}&appid=${this._apiKey}&units=metric&lang=${this.translateState.localization}`).pipe(
-      startWith(JSON.parse(localStorage.getItem('weatherData') ?? '')),
+      startWith(localStorage.getItem('weatherData') ? JSON.parse(localStorage.getItem('weatherData')!) : null),
       map((res: any) => {
         return res as WeatherData;
       }),
@@ -43,7 +43,7 @@ export class WeatherService {
   getForecast(lat?: number, long?: number): void {
     this._http.get(
       `https://api.openweathermap.org/data/2.5/forecast?lat=${lat ?? this._mariborLat}&lon=${long ?? this._mariborLon}&appid=${this._apiKey}&units=metric&lang=${this.translateState.localization}`).pipe(
-      startWith(JSON.parse(localStorage.getItem('forecastData') ?? '')),
+      startWith(localStorage.getItem('forecastData') ? JSON.parse(localStorage.getItem('forecastData')!) : null),
       map((res: any) => {
         return res as ForecastData;
       }),
