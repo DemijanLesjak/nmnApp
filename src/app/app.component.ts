@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { WeatherService } from './services/weather.service';
+import { TranslateService } from '@ngx-translate/core';
+import { TranslateStateService } from './services/translate-state.service';
 
 @Component({
   selector: 'app-root',
@@ -8,17 +10,37 @@ import { WeatherService } from './services/weather.service';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
+  geolocation: any;
 
-  constructor(public weatherService: WeatherService) {
+  constructor(
+    public weatherService: WeatherService,
+    public translate: TranslateService,
+    public translateState: TranslateStateService) {
+
   }
 
   ngOnInit() {
-    this.weatherService.getWeather();
-    this.weatherService.getForecast();
+    this.geolocation = navigator.geolocation;
+    this.refresh();
   }
 
   refresh() {
-    this.weatherService.getWeather();
-    this.weatherService.getForecast();
+    if (this.geolocation) {
+      this.geolocation.getCurrentPosition((pos: GeolocationPosition) => {
+        this.weatherService.getWeather(pos.coords.latitude, pos.coords.longitude);
+        this.weatherService.getForecast(pos.coords.latitude, pos.coords.longitude);
+      });
+    } else {
+      this.weatherService.getWeather();
+      this.weatherService.getForecast();
+    }
+  }
+
+  changeLanguage(lang: 'en' | 'sl') {
+    if (this.translateState.localization === lang) {
+      return;
+    }
+    this.translateState.setLanguage(lang);
+    this.refresh();
   }
 }

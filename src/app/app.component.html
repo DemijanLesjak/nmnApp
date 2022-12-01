@@ -1,5 +1,8 @@
 <div class="header">
-
+  <div class="languages">
+    <p (click)="changeLanguage('en')" [class.active]="translateState.localization === 'en'">EN</p>
+    <p (click)="changeLanguage('sl')" [class.active]="translateState.localization === 'sl'">SLO</p>
+  </div>
 </div>
 
 <div class="content">
@@ -25,7 +28,7 @@
   </ng-template>
 
   <div class="button-container">
-    <button mat-raised-button (click)="refresh()">Refresh</button>
+    <button mat-raised-button (click)="refresh()">{{"refreshButton" | translate}}</button>
   </div>
 </div>
 

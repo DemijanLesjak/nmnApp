@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, map, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, startWith, tap } from 'rxjs';
 import { WeatherData } from '../../models/WeatherData';
 import * as moment from 'moment';
 import { ForecastData } from '../../models/ForecastData';
+import { TranslateStateService } from './translate-state.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,29 +18,37 @@ export class WeatherService {
   public timestamp$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
   constructor(
-    private _http: HttpClient
+    private _http: HttpClient,
+    public translateState: TranslateStateService
   ) {
     moment.locale('sl');
   }
 
-  getWeather(): void {
-    this._http.get(`https://api.openweathermap.org/data/2.5/weather?lat=${this._mariborLat}&lon=${this._mariborLon}&appid=${this._apiKey}&units=metric`).pipe(
+  getWeather(lat?: number, long?: number): void {
+    this._http.get(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${lat ?? this._mariborLat}&lon=${long ?? this._mariborLon}&appid=${this._apiKey}&units=metric&lang=${this.translateState.localization}`).pipe(
+      startWith(localStorage.getItem('weatherData') ? JSON.parse(localStorage.getItem('weatherData')!) : null),
       map((res: any) => {
         return res as WeatherData;
       }),
       tap((res: WeatherData) => {
+        localStorage.setItem('weatherData', JSON.stringify(res));
         this.weatherData$.next(res);
+        moment.locale(this.translateState.localization);
         this.timestamp$.next(moment().format('LLLL'));
       })
     ).subscribe();
   }
 
-  getForecast(): void {
-    this._http.get(`https://api.openweathermap.org/data/2.5/forecast?lat=${this._mariborLat}&lon=${this._mariborLon}&appid=${this._apiKey}&units=metric`).pipe(
+  getForecast(lat?: number, long?: number): void {
+    this._http.get(
+      `https://api.openweathermap.org/data/2.5/forecast?lat=${lat ?? this._mariborLat}&lon=${long ?? this._mariborLon}&appid=${this._apiKey}&units=metric&lang=${this.translateState.localization}`).pipe(
+      startWith(localStorage.getItem('forecastData') ? JSON.parse(localStorage.getItem('forecastData')!) : null),
       map((res: any) => {
         return res as ForecastData;
       }),
       tap((res: ForecastData) => {
+        localStorage.setItem('forecastData', JSON.stringify(res));
         this.forecastData$.next(res);
       })
     ).subscribe();
